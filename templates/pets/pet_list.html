@@ -32,17 +32,20 @@
     <div class="container">
         <h1 class='text-center'>All pet photos</h1>
         <div class="row">
+            {% for p in pet %}
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem;">
-                    <img src="pet_url" class="card-img-top" alt="...">
+                    <img src="{{ p.image_url }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">pet_type pet_name, Age: pet_age</h5>
-                        <p class="card-text">pet_description</p>
-                        <a href="pet-detail with pet_id" class="btn btn-primary">See details</a>
+                        <h5 class="card-title">{{ p.type }} {{ p.name }}, Age: {{ p.age }}</h5>
+                        <p class="card-text">{{ p.description }}</p>
+                        <a href="{% url 'pet-detail' p.id %}" class="btn btn-primary">See details</a>
                     </div>
                 </div>
             </div>
+             {% endfor %}
         </div>
+
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

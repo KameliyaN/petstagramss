@@ -4,9 +4,9 @@ from django.db import models
 # Create your models here.
 class Pet(models.Model):
     PET_TYPE = (
-        ('c', 'cat'),
-        ('d', 'dog'),
-        ('p', 'parrot'),
+        ('cat', 'CAT'),
+        ('dog', 'GOD'),
+        ('parrot', 'PARROT'),
     )
     type = models.CharField(max_length=6, choices=PET_TYPE)
     name = models.CharField(max_length=6)
