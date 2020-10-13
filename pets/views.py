@@ -19,10 +19,9 @@ def pet_detail(request, pk):
 
 
 def pets_like(request, pk):
-    likes=Like.objects.get(pk=pk).count()
+    pet = Pet.objects.get(pk=pk)
+    like = Like.objects.get(pet=pet)
+    like.pet = pet
+    like.save()
 
-    context = {
-        'like': likes,
-
-    }
-    return redirect(request, 'pets/pet_detail.html', context)
+    return redirect('pets/pet_detail.html', pk)
