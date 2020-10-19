@@ -25,3 +25,15 @@ def pets_like(request, pk):
     like.save()
 
     return redirect('pets/pet_detail.html', pk)
+
+
+def create_pet(request):
+    pass
+
+
+def edit_pet(request, pk):
+    pass
+
+
+def delete_pet(request, pk):
+    pass
