@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from pets.forms import PetCreateForm
 from pets.models import Pet, Like
 
 
@@ -28,7 +29,12 @@ def pets_like(request, pk):
 
 
 def create_pet(request):
-    pass
+    if request.method == 'POST':
+        pass
+    context = {
+        'form': PetCreateForm()
+    }
+    return render(request, 'pets/pet_create.html', context)
 
 
 def edit_pet(request, pk):
