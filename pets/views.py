@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -30,7 +31,16 @@ def pets_like(request, pk):
 
 def create_pet(request):
     if request.method == 'POST':
-        pass
+        form = PetCreateForm(request.POST)
+        if form.is_valid():
+            pet = form.save()
+            pet.save()
+            return redirect('pet_all')
+        context = {
+            'form': form
+        }
+        return render(request, 'pets/pet_create.html', context)
+
     context = {
         'form': PetCreateForm()
     }
@@ -38,7 +48,18 @@ def create_pet(request):
 
 
 def edit_pet(request, pk):
-    pass
+    pet = Pet.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = PetCreateForm(request.POST, instance=pet)
+        if form.is_valid():
+            pet = form.save()
+            pet.save()
+            return redirect('pet-detail', pk=pk)
+        return HttpResponse('not correct')
+    context = {
+        'form': PetCreateForm(instance=pet)
+    }
+    return render(request, 'pets/pet_edit.html', context)
 
 
 def delete_pet(request, pk):

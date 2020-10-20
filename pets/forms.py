@@ -5,9 +5,9 @@ from pets.models import Pet
 
 class PetCreateForm(forms.ModelForm):
     PET_TYPE = (
-        ('cat', 'CAT'),
-        ('dog', 'GOD'),
-        ('parrot', 'PARROT'),
+        ('cat', 'cat'),
+        ('dog', 'dog'),
+        ('parrot', 'parrot'),
     )
 
     type = forms.ChoiceField(choices=PET_TYPE, required=True, widget=forms.Select(attrs={'class': 'form-control'}))
