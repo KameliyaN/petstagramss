@@ -60,13 +60,13 @@
     <div class="d-block" style="background-color: #f1e3e3; padding:2%">
                 <form method="post">
                     {% csrf_token %}
-                    {% if comment %}
-                        {% for com in comment %}
+                    {% if pet_comments %}
+                        {% for com in pet_comments %}
                              <div class="box">
-                                <h5><em>{{ com }}</em></h5>
+                                <h5><em>{{com}}</em></h5>
 
-                                <button class='btn btn-success' type="submit">Add comment</button>
-                        {% endfor %}
+{#                                <button class='btn btn-success' type="submit">Add comment</button>#}
+                            {% endfor %}
                             </div>
                     {% else %}
                         <div class="box">
