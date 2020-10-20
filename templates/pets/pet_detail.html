@@ -48,9 +48,38 @@
             </div>
             <p class="mt-2">Description: {{ pet.description }}</p>
             <a href="{% url 'pet edit' pk=pet.pk %}" class='btn btn-success'>Edit</a>
+            <a href="{% url 'pet delete' pk=pet.pk %}" class='btn btn-success'>Delete</a>
             <a href="{% url 'pets-like' pet.id %}"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
             <p class="mt-2">Likes: {{ pet.like_set.count }}</p>
+
+
+
+            </div>
+
         </div>
+    <div class="d-block" style="background-color: #f1e3e3; padding:2%">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if comment %}
+                        {% for com in comment %}
+                             <div class="box">
+                                <h5><em>{{ com }}</em></h5>
+
+                                <button class='btn btn-success' type="submit">Add comment</button>
+                        {% endfor %}
+                            </div>
+                    {% else %}
+                        <div class="box">
+                            <h5>There are no comments for this pet.</h5>
+                            {{ form }}
+                            <button class='btn btn-success' type="submit">Add comment</button>
+
+                        </div>
+                    {% endif %}
+
+
+
+                </form>
     </div>
 </div>
 </body>

@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from common.forms import CommentForm
+from common.models import Comment
 from pets.forms import PetCreateForm
 from pets.models import Pet, Like
 
@@ -14,8 +16,22 @@ def pet_all(request):
 
 
 def pet_detail(request, pk):
+    pet = Pet.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = Comment(comment=form.cleaned_data['comment'])
+            comment.save()
+            return redirect('pet-detail', pk=pk)
+        context = {
+            'form': form
+        }
+        return render(request, 'pets/pet_create.html', context)
+
     context = {
-        'pet': Pet.objects.get(pk=pk)
+        'pet': pet,
+        'form': CommentForm()
     }
     return render(request, 'pets/pet_detail.html', context)
 
@@ -63,4 +79,11 @@ def edit_pet(request, pk):
 
 
 def delete_pet(request, pk):
-    pass
+    pet = Pet.objects.get(pk=pk)
+    if request.method == 'POST':
+        pet.delete()
+        return redirect('pet_all')
+    context = {
+        'pet': pet
+    }
+    return render(request, 'pets/pet_delete.html', context)
