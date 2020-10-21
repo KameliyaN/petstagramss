@@ -1,5 +1,5 @@
 from django.db import models
-from django.template.defaultfilters import truncatechars
+
 # Create your models here.
 from pets.models import Pet
 
@@ -9,5 +9,4 @@ class Comment(models.Model):
     comment = models.TextField()
 
     def __str__(self):
-
-        return f'{truncatechars(self.comment,5)}'
+        return str(self.comment)

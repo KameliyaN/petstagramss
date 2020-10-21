@@ -22,15 +22,15 @@ def pet_detail(request, pk):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            current_comment = Comment(form.cleaned_data['comment'])
-            current_comment.id = pet.id
-            # current_comment.pet = pet
+            current_comment = Comment(comment=form.cleaned_data['comment'])
+            # current_comment.id = pet.id
+            current_comment.pet = pet
             current_comment.save()
 
             context = {
                 'pet': pet,
-
-                'pet_comments':total_comments
+                'comment': current_comment,
+                'pet_comments': total_comments
 
             }
             return render(request, 'pets/pet_detail.html', context)
