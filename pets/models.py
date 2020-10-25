@@ -19,4 +19,5 @@ class Pet(models.Model):
 
 
 class Like(models.Model):
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, null=True)
+    test = models.CharField(max_length=2)

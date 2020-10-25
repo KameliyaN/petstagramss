@@ -17,23 +17,23 @@ def pet_all(request):
 
 def pet_detail(request, pk):
     pet = Pet.objects.get(pk=pk)
-    total_comments = Comment.objects.filter(pk=pk)
+    # total_comments = Comment.objects.filter(pk=pk)
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            current_comment = Comment(comment=form.cleaned_data['comment'])
-            # current_comment.id = pet.id
-            current_comment.pet = pet
-            current_comment.save()
+            comment = Comment(comment=form.cleaned_data['comment'])
 
-            context = {
-                'pet': pet,
-                'comment': current_comment,
-                'pet_comments': total_comments
+            comment.pet = pet
+            comment.save()
+            return redirect('pet-detail', pk)
 
-            }
-            return render(request, 'pets/pet_detail.html', context)
+        context = {
+            'pet': pet,
+            'form': form
+
+        }
+        return render(request, 'pets/pet_detail.html', context)
 
     context = {
         'pet': pet,
@@ -45,11 +45,10 @@ def pet_detail(request, pk):
 
 def pets_like(request, pk):
     pet = Pet.objects.get(pk=pk)
-    like = Like.objects.get(pet=pet)
+    like = Like(test=str(pk))
     like.pet = pet
     like.save()
-
-    return redirect('pets/pet_detail.html', pk)
+    return redirect('pet-detail', pk)
 
 
 def create_pet(request):
